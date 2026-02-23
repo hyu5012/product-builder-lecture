@@ -408,6 +408,25 @@ body {
     height: 5px;
 }
 
+/* ── Disqus ── */
+.disqus-section {
+    border-top: 1px solid var(--border-color);
+    padding: 24px 24px 32px;
+    transition: border-color 0.3s;
+}
+
+.disqus-title {
+    font-size: 1em;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+    transition: color 0.3s;
+}
+
+#disqus_thread {
+    min-height: 100px;
+}
+
 /* ── Contact Form ── */
 .back-btn {
     position: absolute;

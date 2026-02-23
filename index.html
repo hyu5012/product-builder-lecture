@@ -62,7 +62,28 @@
         <div class="contact-link-wrap">
             <a href="contact.html" class="contact-link">🤝 제휴 문의하기</a>
         </div>
+
+        <div class="disqus-section">
+            <h3 class="disqus-title">💬 댓글</h3>
+            <div id="disqus_thread"></div>
+        </div>
     </div>
+
+    <script>
+        var disqus_config = function () {
+            this.page.url = window.location.href;
+            this.page.identifier = 'lotto-main';
+            this.page.colorScheme = localStorage.getItem('lotto-theme') === 'dark' ? 'dark' : 'light';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://productbuilder-bj9in7mijt.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>댓글을 보려면 JavaScript를 활성화해주세요. <a href="https://disqus.com/?ref_noscript">Disqus 댓글 보기</a></noscript>
+
     <script src="main.js"></script>
 </body>
 </html>

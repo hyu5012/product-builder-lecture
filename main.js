@@ -119,6 +119,18 @@ function draw() {
 function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     document.getElementById('theme-toggle').textContent = theme === 'dark' ? '☀️' : '🌙';
+
+    // Disqus 색상 테마 갱신
+    if (typeof DISQUS !== 'undefined') {
+        DISQUS.reset({
+            reload: true,
+            config: function () {
+                this.page.url = window.location.href;
+                this.page.identifier = 'lotto-main';
+                this.page.colorScheme = theme;
+            }
+        });
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
