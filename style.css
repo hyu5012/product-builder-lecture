@@ -1,3 +1,33 @@
+:root {
+    --bg-container: rgba(255, 255, 255, 0.97);
+    --text-secondary: #444;
+    --text-muted: #888;
+    --text-faint: #aaa;
+    --text-placeholder: #bbb;
+    --border-color: #f0f0f0;
+    --border-light: #e0e0e0;
+    --btn-bg: white;
+    --btn-text: #666;
+    --history-bg: #f8f9fa;
+    --empty-color: #ccc;
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] {
+    --bg-container: rgba(28, 28, 48, 0.98);
+    --text-secondary: #c8c8d8;
+    --text-muted: #9090aa;
+    --text-faint: #707088;
+    --text-placeholder: #606078;
+    --border-color: #3a3a58;
+    --border-light: #3a3a58;
+    --btn-bg: #252540;
+    --btn-text: #9898b8;
+    --history-bg: #222238;
+    --empty-color: #505068;
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -15,12 +45,13 @@ body {
 }
 
 .container {
-    background: rgba(255, 255, 255, 0.97);
+    background: var(--bg-container);
     border-radius: 24px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--shadow);
     width: 100%;
     max-width: 520px;
     overflow: hidden;
+    transition: background 0.3s, box-shadow 0.3s;
 }
 
 /* Header */
@@ -29,6 +60,30 @@ body {
     padding: 32px 24px 28px;
     text-align: center;
     color: white;
+    position: relative;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(255, 255, 255, 0.25);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.1em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+    backdrop-filter: blur(4px);
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
 }
 
 .logo {
@@ -53,17 +108,19 @@ body {
 /* Controls */
 .controls {
     padding: 24px;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--border-color);
+    transition: border-color 0.3s;
 }
 
 .game-count-selector label {
     display: block;
     font-size: 0.85em;
-    color: #888;
+    color: var(--text-muted);
     margin-bottom: 10px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    transition: color 0.3s;
 }
 
 .count-buttons {
@@ -75,12 +132,12 @@ body {
 .count-btn {
     flex: 1;
     padding: 10px 0;
-    border: 2px solid #e0e0e0;
-    background: white;
+    border: 2px solid var(--border-light);
+    background: var(--btn-bg);
     border-radius: 10px;
     font-size: 0.9em;
     font-weight: 600;
-    color: #666;
+    color: var(--btn-text);
     cursor: pointer;
     transition: all 0.2s;
 }
@@ -143,8 +200,9 @@ body {
 
 .placeholder {
     text-align: center;
-    color: #bbb;
+    color: var(--text-placeholder);
     padding: 20px 0;
+    transition: color 0.3s;
 }
 
 .placeholder-icon {
@@ -176,11 +234,12 @@ body {
 
 .game-label {
     font-size: 0.8em;
-    color: #999;
+    color: var(--text-muted);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 10px;
+    transition: color 0.3s;
 }
 
 .balls-row {
@@ -235,17 +294,19 @@ body {
 /* Legend */
 .legend {
     padding: 16px 24px 20px;
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid var(--border-color);
     text-align: center;
+    transition: border-color 0.3s;
 }
 
 .legend p {
     font-size: 0.78em;
-    color: #aaa;
+    color: var(--text-faint);
     margin-bottom: 10px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    transition: color 0.3s;
 }
 
 .legend-items {
@@ -266,8 +327,9 @@ body {
 
 /* History */
 .history-section {
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid var(--border-color);
     padding: 20px 24px;
+    transition: border-color 0.3s;
 }
 
 .history-header {
@@ -279,15 +341,16 @@ body {
 
 .history-header h3 {
     font-size: 1em;
-    color: #444;
+    color: var(--text-secondary);
     font-weight: 700;
+    transition: color 0.3s;
 }
 
 #clear-history {
     font-size: 0.8em;
-    color: #aaa;
+    color: var(--text-faint);
     background: none;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-light);
     border-radius: 6px;
     padding: 4px 10px;
     cursor: pointer;
@@ -301,23 +364,26 @@ body {
 
 .empty-history {
     text-align: center;
-    color: #ccc;
+    color: var(--empty-color);
     font-size: 0.9em;
     padding: 12px 0;
+    transition: color 0.3s;
 }
 
 .history-item {
-    background: #f8f9fa;
+    background: var(--history-bg);
     border-radius: 10px;
     padding: 12px 14px;
     margin-bottom: 10px;
     animation: slideIn 0.3s ease forwards;
+    transition: background 0.3s;
 }
 
 .history-meta {
     font-size: 0.75em;
-    color: #aaa;
+    color: var(--text-faint);
     margin-bottom: 8px;
+    transition: color 0.3s;
 }
 
 .history-balls {

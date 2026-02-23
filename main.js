@@ -116,7 +116,24 @@ function draw() {
     }, totalDuration);
 }
 
+function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.getElementById('theme-toggle').textContent = theme === 'dark' ? '☀️' : '🌙';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    // 저장된 테마 불러오기
+    const savedTheme = localStorage.getItem('lotto-theme') || 'light';
+    applyTheme(savedTheme);
+
+    // 다크/라이트 모드 토글
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        localStorage.setItem('lotto-theme', next);
+    });
+
     // 게임 수 선택
     document.querySelectorAll('.count-btn').forEach(btn => {
         btn.addEventListener('click', () => {
