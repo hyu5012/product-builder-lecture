@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제휴 문의 - 로또 번호 추첨기</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button id="theme-toggle" class="theme-toggle" title="다크/라이트 모드 전환">🌙</button>
+            <a href="index.html" class="back-btn" title="메인으로 돌아가기">←</a>
+            <div class="logo">🤝</div>
+            <h1>제휴 문의</h1>
+            <p class="subtitle">함께 성장할 파트너를 찾고 있어요</p>
+        </div>
+
+        <div class="contact-form-wrap">
+            <form id="contact-form" action="https://formspree.io/f/mbdaplrk" method="POST">
+                <input type="hidden" name="_subject" value="[로또 추첨기] 새로운 제휴 문의">
+                <!-- 스팸 방지용 허니팟 -->
+                <input type="text" name="_gotcha" style="display:none">
+
+                <div class="form-group">
+                    <label for="company">회사명 <span class="required">*</span></label>
+                    <input type="text" id="company" name="company" placeholder="회사 이름을 입력해주세요" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">담당자명 <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" placeholder="성함을 입력해주세요" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">이메일 <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="example@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">연락처</label>
+                        <input type="tel" id="phone" name="phone" placeholder="010-0000-0000">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">문의 내용 <span class="required">*</span></label>
+                    <textarea id="message" name="message" rows="5" placeholder="제휴 목적 및 문의 내용을 자유롭게 작성해주세요" required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-btn">
+                    <span class="btn-icon">📨</span>
+                    문의 보내기
+                </button>
+            </form>
+
+            <div id="form-success" class="form-success" style="display:none">
+                <div class="success-icon">✅</div>
+                <h3>문의가 접수되었습니다!</h3>
+                <p>빠른 시일 내에 이메일로 연락드리겠습니다.</p>
+                <a href="index.html" class="back-link">메인으로 돌아가기</a>
+            </div>
+
+            <div id="form-error" class="form-error" style="display:none">
+                <p>전송 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.</p>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+    <script>
+        const form = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.textContent = '전송 중...';
+
+            try {
+                const res = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (res.ok) {
+                    form.style.display = 'none';
+                    document.getElementById('form-success').style.display = 'block';
+                } else {
+                    throw new Error();
+                }
+            } catch {
+                document.getElementById('form-error').style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span class="btn-icon">📨</span> 문의 보내기';
+            }
+        });
+    </script>
+</body>
+</html>
